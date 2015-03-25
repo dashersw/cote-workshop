@@ -1,0 +1,17 @@
+{
+  "name": "cote-workshop",
+  "version": "0.0.0",
+  "description": "A microservices case study with cote.js",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:dashersw/cote-workshop.git"
+  },
+  "author": "Armagan Amcalar <armagan@amcalar.com>",
+  "license": "MIT",
+  "dependencies": {
+    "cote": "0.5.7",
+    "orm": "2.1.24",
+    "sqlite3": "3.0.5"
+  }
+}
