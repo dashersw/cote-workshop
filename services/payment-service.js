@@ -4,7 +4,7 @@ var cote = require('cote'),
 var paymentResponder = new cote.Responder({
     name: 'payment responder',
     namespace: 'payment'
-});
+}, { multicast: '239.1.11.111' });
 
 paymentResponder.on('process', function(req, cb) {
     models.User.get(req.userId, function(err, user) {

@@ -5,18 +5,18 @@ var purchaseResponder = new cote.Responder({
     name: 'purchase responder',
     namespace: 'purchase',
     respondsTo: ['buy']
-});
+}, { multicast: '239.1.11.111' });
 
 var purchasePublisher = new cote.Publisher({
     name: 'purchase publisher',
     namespace: 'purchase',
     broadcasts: ['update']
-});
+}, { multicast: '239.1.11.111' });
 
 var paymentRequester = new cote.Requester({
     name: 'payment requester',
     namespace: 'payment'
-});
+}, { multicast: '239.1.11.111' });
 
 purchaseResponder.on('buy', function(req, cb) {
     var purchase = new models.Purchase({});

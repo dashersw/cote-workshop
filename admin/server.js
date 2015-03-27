@@ -43,16 +43,16 @@ app.get('/purchase', function(req, res) {
 var productRequester = new cote.Requester({
     name: 'admin product requester',
     namespace: 'product'
-});
+}, { multicast: '239.1.11.111' });
 
 var userRequester = new cote.Requester({
     name: 'admin user requester',
     namespace: 'user'
-});
+}, { multicast: '239.1.11.111' });
 
 var purchaseRequester = new cote.Requester({
     name: 'admin purchase requester',
     namespace: 'purchase'
-});
+}, { multicast: '239.1.11.111' });
 
 server.listen(5000);

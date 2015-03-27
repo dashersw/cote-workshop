@@ -11,4 +11,4 @@ server.listen(5001);
 
 new cote.Sockend(io, {
     name: 'end-user'
-});
+}, { multicast: '239.1.11.111' });
