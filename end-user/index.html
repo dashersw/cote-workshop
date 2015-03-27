@@ -9,6 +9,7 @@
     <script>
         angular.module('end-user', []).controller('ProductController', ProductController);
         var productService = io.connect('http://localhost:5001/product');
+        var purchaseService = io.connect('http://localhost:5001/purchase');
         var userService = io.connect('http://localhost:5001/user');
 
         function ProductController($scope) {
@@ -25,6 +26,13 @@
                     $scope.$digest();
                 });
             }
+
+            $scope.purchase = function(id) {
+                purchaseService.emit('buy', { userId: $scope.user.id, productId: id }, function(err, data) {
+                    list();
+                    $scope.user = data.user;
+                });
+            };
 
             productService.on('update', function(data) {
                 $scope.products = data;
@@ -44,6 +52,9 @@
     <p><strong>{{product.name || 'a' }}</strong></p>
     <img class="img-thumbnail" ng-src="http://lorempixel.com/100/100/food/{{product.id % 10}}" alt=""/>
     <p>{{product.stock}} in stock</p>
+    <button type="button" class="btn btn-sm btn-success"  ng-click="purchase(product.id)" ng-style="{'visibility': product.stock > 0 ? 'visible' : 'hidden' }">
+        Buy &mdash; ${{product.price}}
+    </button>
 </div>
 </body>
 </html>

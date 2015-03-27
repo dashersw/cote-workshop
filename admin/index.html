@@ -7,11 +7,13 @@
     <script src="/socket.io/socket.io.js"></script>
     <script>
         var userService = io.connect('http://localhost:5001/user');
+        var purchaseService = io.connect('http://localhost:5001/purchase');
 
         angular.module('admin', []).controller('ProductController', ProductController);
         function ProductController($scope, $http) {
             listProducts();
             listUsers();
+            listPurchases();
 
             function listProducts() {
                 $http.get('/product').success(function(data) {
@@ -22,7 +24,21 @@
             function listUsers() {
                 $http.get('/user').success(function(data) {
                     $scope.users = data;
+
+                    $scope.users.forEach(function(user) {
+                        user.productIds = user.purchases.map(function(p) {
+                            return p.product_id;
+                        }).join(', ');
+                    })
                 });
+            }
+
+            function listPurchases() {
+                $http.get('/purchase').success(function(data) {
+                    $scope.purchases = data;
+                });
+                listUsers();
+                listProducts();
             }
 
             $scope.create = function() {
@@ -37,6 +53,7 @@
             };
 
             userService.on('update', listUsers);
+            purchaseService.on('update', listPurchases);
         }
     </script>
 </head>
@@ -105,10 +122,27 @@
     <tr ng-repeat="user in users | orderBy:'-id'">
         <td>{{user.id}}</td>
         <td>{{user.balance}}</td>
+        <td>{{user.productIds}}</td>
     </tr>
     </tbody>
 </table>
 
 <h1>Purchases</h1>
+<table class="table table-striped">
+    <thead>
+    <tr>
+        <th>#</th>
+        <th>User</th>
+        <th>Product</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="purchase in purchases | orderBy:'-id'">
+        <td>{{purchase.id}}</td>
+        <td>{{purchase.owner.id}}</td>
+        <td>{{purchase.product.name}}</td>
+    </tr>
+    </tbody>
+</table>
 </body>
 </html>

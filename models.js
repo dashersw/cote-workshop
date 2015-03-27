@@ -8,8 +8,18 @@ var Product = db.define('product', {
     stock: Number
 });
 
+var Purchase = db.define('purchase', {});
+
 var User = db.define('user', {
     balance: { type: 'number', defaultValue: 30 }
+});
+
+Purchase.hasOne('product', Product, {
+    autoFetch: true
+});
+Purchase.hasOne('owner', User, {
+    autoFetch: true,
+    reverse: 'purchases'
 });
 
 function init(callback) {
@@ -18,6 +28,7 @@ function init(callback) {
 
 module.exports = {
     Product: Product,
+    Purchase: Purchase,
     User: User,
     init: init
 };

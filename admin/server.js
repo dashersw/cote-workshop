@@ -34,6 +34,11 @@ app.get('/user', function(req, res) {
     });
 });
 
+app.get('/purchase', function(req, res) {
+    purchaseRequester.send({ type: 'list' }, function(err, purchases) {
+        res.send(purchases);
+    });
+});
 
 var productRequester = new cote.Requester({
     name: 'admin product requester',
@@ -43,6 +48,11 @@ var productRequester = new cote.Requester({
 var userRequester = new cote.Requester({
     name: 'admin user requester',
     namespace: 'user'
+});
+
+var purchaseRequester = new cote.Requester({
+    name: 'admin purchase requester',
+    namespace: 'purchase'
 });
 
 server.listen(5000);
