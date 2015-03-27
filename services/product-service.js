@@ -7,11 +7,27 @@ var productResponder = new cote.Responder({
     respondsTo: ['list']
 });
 
+var productPublisher = new cote.Publisher({
+    name: 'product publisher',
+    namespace: 'product',
+    broadcasts: ['update']
+});
+
 productResponder.on('list', function(req, cb) {
     var query = req.query || {};
     models.Product.find(query, cb);
 });
 
 productResponder.on('create', function(req, cb) {
-    models.Product.create(req.product, cb);
+    models.Product.create(req.product, function(err, products) {
+        cb(err, products);
+
+        updateProducts();
+    });
 });
+
+function updateProducts() {
+    models.Product.find(function(err, products) {
+        productPublisher.publish('update', products);
+    });
+}

@@ -19,6 +19,11 @@
                     $scope.$digest();
                 });
             }
+
+            productService.on('update', function(data) {
+                $scope.products = data;
+                $scope.$digest();
+            });
         }
     </script>
 </head>
