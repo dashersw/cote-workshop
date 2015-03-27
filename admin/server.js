@@ -22,6 +22,12 @@ app.post('/product', function(req, res) {
     });
 });
 
+app.delete('/product/:id', function(req, res) {
+    productRequester.send({ type: 'delete', id: req.params.id }, function(err, product) {
+        res.send(product);
+    });
+});
+
 
 var productRequester = new cote.Requester({
     name: 'admin product requester',

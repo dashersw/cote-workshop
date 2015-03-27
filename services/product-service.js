@@ -26,6 +26,16 @@ productResponder.on('create', function(req, cb) {
     });
 });
 
+productResponder.on('delete', function(req, cb) {
+    models.Product.get(req.id, function(err, product) {
+        product.remove(function(err, product) {
+            cb(err, product);
+
+            updateProducts();
+        });
+    });
+});
+
 function updateProducts() {
     models.Product.find(function(err, products) {
         productPublisher.publish('update', products);

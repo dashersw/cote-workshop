@@ -20,6 +20,10 @@
                     $scope.product = {};
                 });
             };
+
+            $scope.delete = function(id) {
+                $http.delete('/product/' + id, {id: id}).success(listProducts);
+            };
         }
     </script>
 </head>
@@ -59,6 +63,7 @@
         <th>Name</th>
         <th>Price</th>
         <th>Stock</th>
+        <th>Action</th>
     </tr>
     </thead>
     <tbody>
@@ -67,6 +72,9 @@
         <td>{{product.name}}</td>
         <td>{{product.price}}</td>
         <td>{{product.stock}}</td>
+        <td>
+            <button type="button" class="btn btn-sm btn-danger" ng-click="delete(product.id)">Delete</button>
+        </td>
     </tr>
     </tbody>
 </table>
