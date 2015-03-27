@@ -3,7 +3,8 @@ var cote = require('cote'),
 
 var productResponder = new cote.Responder({
     name: 'product responder',
-    namespace: 'product'
+    namespace: 'product',
+    respondsTo: ['list']
 });
 
 productResponder.on('list', function(req, cb) {

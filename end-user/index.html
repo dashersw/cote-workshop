@@ -5,8 +5,29 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        angular.module('end-user', []).controller('ProductController', ProductController);
+        var productService = io.connect('http://localhost:5001/product');
+
+        function ProductController($scope) {
+            list();
+
+            function list() {
+                productService.emit('list', function(err, data) {
+                    $scope.products = data;
+                    $scope.$digest();
+                });
+            }
+        }
+    </script>
 </head>
-<body class="container">
+<body class="container" ng-controller="ProductController">
 <h1>Products</h1>
+<div ng-repeat="product in products | orderBy:'-id'" class="col-xs-2">
+    <p><strong>{{product.name || 'a' }}</strong></p>
+    <img class="img-thumbnail" ng-src="http://lorempixel.com/100/100/food/{{product.id % 10}}" alt=""/>
+    <p>{{product.stock}} in stock</p>
+</div>
 </body>
 </html>
