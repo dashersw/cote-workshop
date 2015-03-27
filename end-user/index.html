@@ -9,8 +9,14 @@
     <script>
         angular.module('end-user', []).controller('ProductController', ProductController);
         var productService = io.connect('http://localhost:5001/product');
+        var userService = io.connect('http://localhost:5001/user');
 
         function ProductController($scope) {
+            userService.emit('create', {}, function(err, data) {
+                $scope.user = data;
+                $scope.$digest();
+            });
+
             list();
 
             function list() {
@@ -28,6 +34,11 @@
     </script>
 </head>
 <body class="container" ng-controller="ProductController">
+<h2>
+    <span class="label label-default">User #{{user.id}}</span>
+    <span class="label label-success">Balance ${{user.balance}}</span>
+</h2>
+
 <h1>Products</h1>
 <div ng-repeat="product in products | orderBy:'-id'" class="col-xs-2">
     <p><strong>{{product.name || 'a' }}</strong></p>

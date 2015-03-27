@@ -4,13 +4,24 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
     <script>
+        var userService = io.connect('http://localhost:5001/user');
+
         angular.module('admin', []).controller('ProductController', ProductController);
         function ProductController($scope, $http) {
             listProducts();
+            listUsers();
+
             function listProducts() {
                 $http.get('/product').success(function(data) {
                     $scope.products = data;
+                });
+            }
+
+            function listUsers() {
+                $http.get('/user').success(function(data) {
+                    $scope.users = data;
                 });
             }
 
@@ -24,6 +35,8 @@
             $scope.delete = function(id) {
                 $http.delete('/product/' + id, {id: id}).success(listProducts);
             };
+
+            userService.on('update', listUsers);
         }
     </script>
 </head>
@@ -80,6 +93,21 @@
 </table>
 
 <h1>Users</h1>
+<table class="table table-striped">
+    <thead>
+    <tr>
+        <th>#</th>
+        <th>Balance</th>
+        <th>Purchases</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="user in users | orderBy:'-id'">
+        <td>{{user.id}}</td>
+        <td>{{user.balance}}</td>
+    </tr>
+    </tbody>
+</table>
 
 <h1>Purchases</h1>
 </body>

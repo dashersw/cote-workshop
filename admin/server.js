@@ -28,9 +28,21 @@ app.delete('/product/:id', function(req, res) {
     });
 });
 
+app.get('/user', function(req, res) {
+    userRequester.send({ type: 'list' }, function(err, users) {
+        res.send(users);
+    });
+});
+
 
 var productRequester = new cote.Requester({
     name: 'admin product requester',
     namespace: 'product'
 });
+
+var userRequester = new cote.Requester({
+    name: 'admin user requester',
+    namespace: 'user'
+});
+
 server.listen(5000);

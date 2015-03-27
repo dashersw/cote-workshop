@@ -8,11 +8,16 @@ var Product = db.define('product', {
     stock: Number
 });
 
+var User = db.define('user', {
+    balance: { type: 'number', defaultValue: 30 }
+});
+
 function init(callback) {
     db.sync(callback);
 }
 
 module.exports = {
     Product: Product,
+    User: User,
     init: init
 };
