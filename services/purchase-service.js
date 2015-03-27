@@ -13,19 +13,23 @@ var purchasePublisher = new cote.Publisher({
     broadcasts: ['update']
 });
 
+var paymentRequester = new cote.Requester({
+    name: 'payment requester',
+    namespace: 'payment'
+});
+
 purchaseResponder.on('buy', function(req, cb) {
     var purchase = new models.Purchase({});
 
     models.Product.get(req.productId, function(err, product) {
         if (product.stock == 0) return cb(true);
 
-        models.User.get(req.userId, function(err, user) {
-            if (user.balance < product.price) return cb(true);
+        paymentRequester.send({ type: 'process', userId: req.userId, price: product.price }, function(err) {
+            if (err) return cb(err);
 
-            user.balance -= product.price;
             product.stock--;
 
-            user.save(function() {
+            models.User.get(req.userId, function(err, user) {
                 product.save(function() {
                     purchase.setOwner(user, function() {
                         purchase.setProduct(product, function() {

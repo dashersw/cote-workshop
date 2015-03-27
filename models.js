@@ -23,7 +23,9 @@ Purchase.hasOne('owner', User, {
 });
 
 function init(callback) {
-    db.sync(callback);
+    db.drop(function() {
+        db.sync(callback);
+    });
 }
 
 module.exports = {
