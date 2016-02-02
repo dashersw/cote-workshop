@@ -37,6 +37,8 @@ Admin interface will be available in [http://localhost:5000](http://localhost:50
 
 End user interface will be available in [http://localhost:5001](http://localhost:5001)
 
+Navigate to the admin and (multiple) end user interfaces and add / delete / buy some products to see everything updating in real time!
+
 ### Manual start
 
 Run the admin interface:
@@ -55,7 +57,7 @@ node end-user/server
 
 End user interface will be available in [http://localhost:5001](http://localhost:5001)
 
-Now run the services in separate terminal windows (or tabs)
+Now run the services in separate terminal windows (or tabs):
 
 ```
 node services/payment-service
@@ -64,6 +66,4 @@ node services/purchase-service
 node services/user-service
 ```
 
-Navigate to the admin interface, add a few products, and then navigate to the end user interface and buy them.
-
-All updating in real-time!
+Navigate to the admin and (multiple) end user interfaces and add / delete / buy some products to see everything updating in real time!
