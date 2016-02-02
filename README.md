@@ -23,6 +23,18 @@ node init-db.js
 
 There are four backend services, an admin interface and an end-user interface.
 
+### Quickstart
+
+For the quickest start, have [PM2](http://pm2.keymetrics.io) installed globally and then just type:
+
+```
+pm2 start cote-workshop.json
+```
+
+This will run all the 6 services you need, and you can monitor your services with `pm2 monit` or use any pm2 commands at your disposal.
+
+### Manual start
+
 Run the admin interface:
 
 ```
@@ -50,4 +62,4 @@ node services/user-service
 
 Navigate to the admin interface, add a few products, and then navigate to the end user interface and buy them.
 
-All in real-time!
+All updating in real-time!
