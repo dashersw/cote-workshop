@@ -23,7 +23,11 @@ Purchase.hasOne('owner', User, {
 });
 
 function init(callback) {
+    console.log('Dropping db.');
+
     db.drop(function() {
+        console.log('Initializing db.');
+
         db.sync(callback);
     });
 }
