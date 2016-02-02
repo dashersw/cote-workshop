@@ -1,17 +1,17 @@
-var cote = require('cote'),
+var cote = require('cote')({multicast: '239.1.11.111'}),
     models = require('../models');
 
 var productResponder = new cote.Responder({
     name: 'product responder',
     namespace: 'product',
     respondsTo: ['list']
-}, { multicast: '239.1.11.111' });
+});
 
 var productPublisher = new cote.Publisher({
     name: 'product publisher',
     namespace: 'product',
     broadcasts: ['update']
-}, { multicast: '239.1.11.111' });
+});
 
 productResponder.on('list', function(req, cb) {
     var query = req.query || {};

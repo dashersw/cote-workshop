@@ -1,17 +1,17 @@
-var cote = require('cote'),
+var cote = require('cote')({multicast: '239.1.11.111'}),
     models = require('../models');
 
 var userResponder = new cote.Responder({
     name: 'user responder',
     namespace: 'user',
     respondsTo: ['create']
-}, { multicast: '239.1.11.111' });
+});
 
 var userPublisher = new cote.Publisher({
     name: 'user publisher',
     namespace: 'user',
     broadcasts: ['update']
-}, { multicast: '239.1.11.111' });
+});
 
 userResponder.on('create', function(req, cb) {
     models.User.create({}, cb);
