@@ -15,7 +15,7 @@ var purchasePublisher = new cote.Publisher({
 
 var paymentRequester = new cote.Requester({
     name: 'payment requester',
-    namespace: 'payment'
+    key: 'payment'
 });
 
 purchaseResponder.on('buy', function(req, cb) {

@@ -3,7 +3,7 @@ var cote = require('cote')({multicast: '239.1.11.111'}),
 
 var paymentResponder = new cote.Responder({
     name: 'payment responder',
-    namespace: 'payment'
+    key: 'payment'
 });
 
 paymentResponder.on('process', function(req, cb) {
