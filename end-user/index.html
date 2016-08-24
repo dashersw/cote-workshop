@@ -49,7 +49,7 @@
 </h2>
 
 <h1>Products</h1>
-<div ng-repeat="product in products | orderBy:'-id'" class="col-xs-2">
+<div ng-repeat="product in products | orderBy:'-id' track by product.id" class="col-xs-2">
     <p><strong>{{product.name || 'a' }}</strong></p>
     <img class="img-thumbnail" ng-src="http://lorempixel.com/100/100/food/{{product.id % 10}}" alt=""/>
     <p>{{product.stock}} in stock</p>
