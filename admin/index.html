@@ -49,7 +49,7 @@
             };
 
             $scope.delete = function(id) {
-                $http.delete('/product/' + id, {id: id}).success(listProducts);
+                $http.delete('/product/' + id).success(listProducts);
             };
 
             userService.on('update', listUsers);
