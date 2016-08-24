@@ -19,7 +19,7 @@ services:
     command: node admin/server.js
     environment:
       - VIRTUAL_HOST=admin.cote.co, ws://admin.cote.co
-      - BALANCE=roundrobin
+      - BALANCE=source
     restart: on-failure
     expose:
       - 5000
