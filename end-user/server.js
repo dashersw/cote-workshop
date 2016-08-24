@@ -10,5 +10,5 @@ app.get('/', function (req, res) {
 server.listen(5001);
 
 new cote.Sockend(io, {
-    name: 'end-user'
+    name: 'end-user sockend server'
 });
