@@ -13,6 +13,8 @@ var productPublisher = new cote.Publisher({
     broadcasts: ['update']
 });
 
+productResponder.on('*', console.log);
+
 productResponder.on('list', function(req, cb) {
     var query = req.query || {};
     models.Product.find(query, cb);

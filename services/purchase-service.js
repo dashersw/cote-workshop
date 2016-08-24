@@ -18,6 +18,8 @@ var paymentRequester = new cote.Requester({
     key: 'payment'
 });
 
+purchaseResponder.on('*', console.log);
+
 purchaseResponder.on('buy', function(req, cb) {
     var purchase = new models.Purchase({});
 

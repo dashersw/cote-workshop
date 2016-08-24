@@ -6,6 +6,11 @@ var app = require('express')(),
 
 app.use(bodyParser.json());
 
+app.get('*', function(req, res, next) {
+    console.log(req.method, req.url);
+    next();
+});
+
 app.get('/', function(req, res) {
     res.sendFile(__dirname + '/index.html');
 });

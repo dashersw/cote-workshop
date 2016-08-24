@@ -13,6 +13,8 @@ var userPublisher = new cote.Publisher({
     broadcasts: ['update']
 });
 
+userResponder.on('*', console.log);
+
 userResponder.on('create', function(req, cb) {
     models.User.create({}, cb);
 
