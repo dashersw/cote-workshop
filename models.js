@@ -1,5 +1,19 @@
 var orm = require('orm');
-var db = orm.connect('sqlite://' + __dirname + '/db.sqlite');
+
+var connectionString;
+
+if (process.env.SQLITE == 'true')
+    connectionString = 'sqlite://' + __dirname + '/db.sqlite';
+else
+    connectionString = 'postgres://cote:ohgath2ig8eoP8@pg/cote';
+
+var db = orm.connect(connectionString, function onConnect(err) {
+    if (err) {
+        console.log('Error', err);
+        process.exit();
+    }
+});
+
 db.settings.set('instance.cache', false);
 
 var Product = db.define('product', {

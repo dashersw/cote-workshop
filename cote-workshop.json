@@ -3,32 +3,50 @@
         {
             "name"      : "admin",
             "script"    : "admin/server.js",
-            "watch"     : "admin/server.js"
+            "watch"     : "admin/server.js",
+            "env": {
+                "SQLITE": true
+            }
         },
         {
             "name"      : "end-user",
             "script"    : "end-user/server.js",
-            "watch"     : "end-user/server.js"
+            "watch"     : "end-user/server.js",
+            "env": {
+                "SQLITE": true
+            }
         },
         {
             "name"      : "payment-service",
             "script"    : "services/payment-service.js",
-            "watch"     : "services/payment-service.js"
+            "watch"     : "services/payment-service.js",
+            "env": {
+                "SQLITE": true
+            }
         },
         {
             "name"      : "product-service",
             "script"    : "services/product-service.js",
-            "watch"     : "services/product-service.js"
+            "watch"     : "services/product-service.js",
+            "env": {
+                "SQLITE": true
+            }
         },
         {
             "name"      : "purchase-service",
             "script"    : "services/purchase-service.js",
-            "watch"     : "services/purchase-service.js"
+            "watch"     : "services/purchase-service.js",
+            "env": {
+                "SQLITE": true
+            }
         },
         {
             "name"      : "user-service",
             "script"    : "services/user-service.js",
-            "watch"     : "services/user-service.js"
+            "watch"     : "services/user-service.js",
+            "env": {
+                "SQLITE": true
+            }
         }
     ]
 }
