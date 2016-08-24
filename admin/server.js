@@ -6,7 +6,7 @@ var app = require('express')(),
 
 app.use(bodyParser.json());
 
-app.get('*', function(req, res, next) {
+app.all('*', function(req, res, next) {
     console.log(req.method, req.url);
     next();
 });
