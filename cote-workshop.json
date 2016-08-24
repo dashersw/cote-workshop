@@ -5,7 +5,8 @@
             "script"    : "admin/server.js",
             "watch"     : "admin/server.js",
             "env": {
-                "SQLITE": true
+                "SQLITE": true,
+                "COTE_MULTICAST_ADDRESS": "239.1.21.121"
             }
         },
         {
@@ -13,7 +14,8 @@
             "script"    : "end-user/server.js",
             "watch"     : "end-user/server.js",
             "env": {
-                "SQLITE": true
+                "SQLITE": true,
+                "COTE_MULTICAST_ADDRESS": "239.1.21.121"
             }
         },
         {
@@ -21,7 +23,8 @@
             "script"    : "services/payment-service.js",
             "watch"     : "services/payment-service.js",
             "env": {
-                "SQLITE": true
+                "SQLITE": true,
+                "COTE_MULTICAST_ADDRESS": "239.1.21.121"
             }
         },
         {
@@ -29,7 +32,8 @@
             "script"    : "services/product-service.js",
             "watch"     : "services/product-service.js",
             "env": {
-                "SQLITE": true
+                "SQLITE": true,
+                "COTE_MULTICAST_ADDRESS": "239.1.21.121"
             }
         },
         {
@@ -37,7 +41,8 @@
             "script"    : "services/purchase-service.js",
             "watch"     : "services/purchase-service.js",
             "env": {
-                "SQLITE": true
+                "SQLITE": true,
+                "COTE_MULTICAST_ADDRESS": "239.1.21.121"
             }
         },
         {
@@ -45,7 +50,8 @@
             "script"    : "services/user-service.js",
             "watch"     : "services/user-service.js",
             "env": {
-                "SQLITE": true
+                "SQLITE": true,
+                "COTE_MULTICAST_ADDRESS": "239.1.21.121"
             }
         }
     ]

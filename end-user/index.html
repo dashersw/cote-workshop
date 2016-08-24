@@ -8,9 +8,10 @@
     <script src="/socket.io/socket.io.js"></script>
     <script>
         angular.module('end-user', []).controller('ProductController', ProductController);
-        var productService = io.connect('http://localhost:5001/product');
-        var purchaseService = io.connect('http://localhost:5001/purchase');
-        var userService = io.connect('http://localhost:5001/user');
+
+        var productService = io.connect('/product');
+        var purchaseService = io.connect('/purchase');
+        var userService = io.connect('/user');
 
         function ProductController($scope) {
             userService.emit('create', {}, function(err, data) {

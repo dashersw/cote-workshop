@@ -2,7 +2,7 @@ var app = require('express')(),
     bodyParser = require('body-parser'),
     server = require('http').Server(app),
     io = require('socket.io')(server),
-    cote = require('cote')({multicast: '239.1.11.111'});
+    cote = require('cote');
 
 app.use(bodyParser.json());
 
@@ -56,3 +56,7 @@ var purchaseRequester = new cote.Requester({
 });
 
 server.listen(5000);
+
+new cote.Sockend(io, {
+    name: 'admin sockend server'
+});

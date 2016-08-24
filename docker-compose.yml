@@ -1,0 +1,87 @@
+version: '2'
+services:
+  lb:
+    image: dockercloud/haproxy
+    links:
+      - admin
+      - end-user
+      - monitoring
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    ports:
+      - 80:80
+      - 443:443
+    restart: on-failure
+
+  admin:
+    image: dashersw/cote-workshop
+    command: node admin/server.js
+    environment:
+      - VIRTUAL_HOST=admin.cote.co, ws://admin.cote.co
+      - BALANCE=source
+    restart: on-failure
+    expose:
+      - 5000
+
+  end-user:
+    image: dashersw/cote-workshop
+    command: node end-user/server.js
+    environment:
+      - VIRTUAL_HOST=end-user.cote.co, ws://end-user.cote.co
+      - BALANCE=source
+    restart: on-failure
+    expose:
+      - 5001
+
+  monitoring:
+    image: dashersw/cote-monitoring-tool
+    restart: on-failure
+    command: node .
+    environment:
+      - COTE_MULTICAST_ADDRESS=239.1.21.121
+      - PORT=80
+      - VIRTUAL_HOST=monitoring.cote.co
+    expose:
+      - 80
+
+  payment-service:
+    image: dashersw/cote-workshop
+    restart: on-failure
+    command: node services/payment-service.js
+    depends_on:
+      - db
+
+  product-service:
+    image: dashersw/cote-workshop
+    restart: on-failure
+    command: node services/product-service.js
+    depends_on:
+      - db
+
+  purchase-service:
+    image: dashersw/cote-workshop
+    restart: on-failure
+    command: node services/purchase-service.js
+    depends_on:
+      - db
+
+  user-service:
+    image: dashersw/cote-workshop
+    restart: on-failure
+    command: node services/user-service.js
+    depends_on:
+      - db
+
+  db:
+    image: dashersw/cote-workshop
+    restart: on-failure
+    command: node init-db.js
+    depends_on:
+      - pg
+
+  pg:
+    image: sameersbn/postgresql:9.4
+    environment:
+      - DB_USER=cote
+      - DB_PASS=ohgath2ig8eoP8
+      - DB_NAME=cote

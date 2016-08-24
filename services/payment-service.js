@@ -1,4 +1,4 @@
-var cote = require('cote')({multicast: '239.1.11.111'}),
+var cote = require('cote'),
     models = require('../models');
 
 var paymentResponder = new cote.Responder({

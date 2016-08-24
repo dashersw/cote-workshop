@@ -6,8 +6,8 @@
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
     <script src="/socket.io/socket.io.js"></script>
     <script>
-        var userService = io.connect('http://localhost:5001/user');
-        var purchaseService = io.connect('http://localhost:5001/purchase');
+        var userService = io.connect('/user');
+        var purchaseService = io.connect('/purchase');
 
         angular.module('admin', []).controller('ProductController', ProductController);
         function ProductController($scope, $http) {
