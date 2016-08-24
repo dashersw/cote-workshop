@@ -6,36 +6,36 @@ var app = require('express')(),
 
 app.use(bodyParser.json());
 
-app.get('/', function (req, res) {
+app.get('/', function(req, res) {
     res.sendFile(__dirname + '/index.html');
 });
 
 app.get('/product', function(req, res) {
-    productRequester.send({ type: 'list' }, function(err, products) {
+    productRequester.send({type: 'list'}, function(err, products) {
         res.send(products);
     });
 });
 
 app.post('/product', function(req, res) {
-    productRequester.send({ type: 'create', product: req.body.product }, function(err, product) {
+    productRequester.send({type: 'create', product: req.body.product}, function(err, product) {
         res.send(product);
     });
 });
 
 app.delete('/product/:id', function(req, res) {
-    productRequester.send({ type: 'delete', id: req.params.id }, function(err, product) {
+    productRequester.send({type: 'delete', id: req.params.id}, function(err, product) {
         res.send(product);
     });
 });
 
 app.get('/user', function(req, res) {
-    userRequester.send({ type: 'list' }, function(err, users) {
+    userRequester.send({type: 'list'}, function(err, users) {
         res.send(users);
     });
 });
 
 app.get('/purchase', function(req, res) {
-    purchaseRequester.send({ type: 'list' }, function(err, purchases) {
+    purchaseRequester.send({type: 'list'}, function(err, purchases) {
         res.send(purchases);
     });
 });
