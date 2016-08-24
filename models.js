@@ -10,7 +10,7 @@ else
 var db = orm.connect(connectionString, function onConnect(err) {
     if (err) {
         console.log('Error', err);
-        process.exit();
+        process.exit(1);
     }
 });
 
