@@ -14,6 +14,7 @@ services:
     restart: on-failure
 
   admin:
+    build: .
     image: dashersw/cote-workshop
     command: node admin/server.js
     environment:
@@ -24,6 +25,7 @@ services:
       - 5000
 
   end-user:
+    build: .
     image: dashersw/cote-workshop
     command: node end-user/server.js
     environment:
@@ -45,6 +47,7 @@ services:
       - 80
 
   payment-service:
+    build: .
     image: dashersw/cote-workshop
     restart: on-failure
     command: node services/payment-service.js
@@ -52,6 +55,7 @@ services:
       - db
 
   product-service:
+    build: .
     image: dashersw/cote-workshop
     restart: on-failure
     command: node services/product-service.js
@@ -59,6 +63,7 @@ services:
       - db
 
   purchase-service:
+    build: .
     image: dashersw/cote-workshop
     restart: on-failure
     command: node services/purchase-service.js
@@ -66,6 +71,7 @@ services:
       - db
 
   user-service:
+    build: .
     image: dashersw/cote-workshop
     restart: on-failure
     command: node services/user-service.js
@@ -73,6 +79,7 @@ services:
       - db
 
   db:
+    build: .
     image: dashersw/cote-workshop
     restart: on-failure
     command: node init-db.js
