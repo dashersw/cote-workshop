@@ -1,5 +1,12 @@
 version: '2'
 services:
+  base:
+    build: .
+    image: dashersw/cote-workshop
+    restart: on-failure
+    environment:
+      - PG=true
+
   lb:
     image: dockercloud/haproxy
     links:
@@ -14,80 +21,64 @@ services:
     restart: on-failure
 
   admin:
-    build: .
-    image: dashersw/cote-workshop
+    extends: base
     command: node admin/server.js
     environment:
       - VIRTUAL_HOST=admin.cote.co, ws://admin.cote.co
       - BALANCE=source
-    restart: on-failure
     expose:
       - 5000
 
   end-user:
-    build: .
-    image: dashersw/cote-workshop
+    extends: base
     command: node end-user/server.js
     environment:
       - VIRTUAL_HOST=end-user.cote.co, ws://end-user.cote.co
       - BALANCE=source
-    restart: on-failure
     expose:
       - 5001
 
   monitoring:
-    image: dashersw/cote-monitoring-tool
-    restart: on-failure
-    command: node .
+    extends: base
+    command: node monitor.js
     environment:
-      - COTE_MULTICAST_ADDRESS=239.1.21.121
       - PORT=80
       - VIRTUAL_HOST=monitoring.cote.co
     expose:
-      - 80
+      - 5555
 
   payment-service:
-    build: .
-    image: dashersw/cote-workshop
-    restart: on-failure
+    extends: base
     command: node services/payment-service.js
     depends_on:
       - db
 
   product-service:
-    build: .
-    image: dashersw/cote-workshop
-    restart: on-failure
+    extends: base
     command: node services/product-service.js
     depends_on:
       - db
 
   purchase-service:
-    build: .
-    image: dashersw/cote-workshop
-    restart: on-failure
+    extends: base
     command: node services/purchase-service.js
     depends_on:
       - db
 
   user-service:
-    build: .
-    image: dashersw/cote-workshop
-    restart: on-failure
+    extends: base
     command: node services/user-service.js
     depends_on:
       - db
 
   db:
-    build: .
-    image: dashersw/cote-workshop
-    restart: on-failure
+    extends: base
     command: node init-db.js
     depends_on:
       - pg
 
   pg:
-    image: sameersbn/postgresql:9.4
+    image: sameersbn/postgresql:9.6-1
     environment:
       - DB_USER=cote
       - DB_PASS=ohgath2ig8eoP8

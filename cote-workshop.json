@@ -3,56 +3,32 @@
         {
             "name"      : "admin",
             "script"    : "admin/server.js",
-            "watch"     : "admin/server.js",
-            "env": {
-                "SQLITE": true,
-                "COTE_MULTICAST_ADDRESS": "239.1.21.121"
-            }
+            "watch"     : "admin/server.js"
         },
         {
             "name"      : "end-user",
             "script"    : "end-user/server.js",
-            "watch"     : "end-user/server.js",
-            "env": {
-                "SQLITE": true,
-                "COTE_MULTICAST_ADDRESS": "239.1.21.121"
-            }
+            "watch"     : "end-user/server.js"
         },
         {
             "name"      : "payment-service",
             "script"    : "services/payment-service.js",
-            "watch"     : "services/payment-service.js",
-            "env": {
-                "SQLITE": true,
-                "COTE_MULTICAST_ADDRESS": "239.1.21.121"
-            }
+            "watch"     : "services/payment-service.js"
         },
         {
             "name"      : "product-service",
             "script"    : "services/product-service.js",
-            "watch"     : "services/product-service.js",
-            "env": {
-                "SQLITE": true,
-                "COTE_MULTICAST_ADDRESS": "239.1.21.121"
-            }
+            "watch"     : "services/product-service.js"
         },
         {
             "name"      : "purchase-service",
             "script"    : "services/purchase-service.js",
-            "watch"     : "services/purchase-service.js",
-            "env": {
-                "SQLITE": true,
-                "COTE_MULTICAST_ADDRESS": "239.1.21.121"
-            }
+            "watch"     : "services/purchase-service.js"
         },
         {
             "name"      : "user-service",
             "script"    : "services/user-service.js",
-            "watch"     : "services/user-service.js",
-            "env": {
-                "SQLITE": true,
-                "COTE_MULTICAST_ADDRESS": "239.1.21.121"
-            }
+            "watch"     : "services/user-service.js"
         }
     ]
 }

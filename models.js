@@ -2,10 +2,10 @@ var orm = require('orm');
 
 var connectionString;
 
-if (process.env.SQLITE == 'true')
-    connectionString = 'sqlite://' + __dirname + '/db.sqlite';
-else
+if (process.env.PG == 'true')
     connectionString = 'postgres://cote:ohgath2ig8eoP8@pg/cote';
+else
+    connectionString = 'sqlite://db.sqlite';
 
 var db = orm.connect(connectionString, function onConnect(err) {
     if (err) {
