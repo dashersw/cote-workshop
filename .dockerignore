@@ -1,5 +1,6 @@
 .gitignore
 .dockerignore
+.vscode
 Dockerfile
 docker-compose.yml
 LICENSE
