@@ -37,6 +37,8 @@ Admin interface will be available in [http://localhost:5000](http://localhost:50
 
 End user interface will be available in [http://localhost:5001](http://localhost:5001)
 
+Monitoring will be available in [http://localhost:5555](http://localhost:5555)
+
 Navigate to the admin and (multiple) end user interfaces and add / delete / buy some products to see everything updating in real time!
 
 ### Manual start
@@ -67,3 +69,38 @@ node services/user-service
 ```
 
 Navigate to the admin and (multiple) end user interfaces and add / delete / buy some products to see everything updating in real time!
+
+## Monitoring
+
+There's a built-in monitor service which lets you visualize the connections between microservices. The monitoring service is automatically started via pm2, or if you want to manually start it, run:
+
+```
+node monitor.js
+```
+
+It's a simple monitoring GUI, and will be available in [http://localhost:5555](http://localhost:5555)
+
+## Running locally with host names
+
+This repo includes a proxy service which binds on port 80 to host the application via certain host names.
+
+The proxy supports these virtual hosts;
+
+`http://admin.cote.co` for the admin interface and redirects requests to `localhost:5000`.
+
+`http://end-user.cote.co` for the end user interface and redirects requests to `localhost:5001`.
+
+`http://monitoring.cote.co` for the monitoring interface and redirects requests to `localhost:5555`.
+
+Then you have to modify your `/etc/hosts` file to include `127.0.0.1 admin.cote.co end-user.cote.co monitoring.cote.co`. Now when you visit either of these addresses in your browser, you will be redirected to the respective service.
+
+## Docker installation
+
+This repository includes a full-featured `docker-compose.yml` to start all the necessary services including a PostgreSQL database via Docker.
+
+Run the following to launch all services;
+```
+docker-compose up
+```
+
+This will build necessary local images and then launch a cluster of services. If you edit your `/etc/hosts` file to accomodate the given domain names, you can interact with the application via your browser.
