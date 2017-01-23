@@ -63,7 +63,7 @@ payment-service:
     - postgres
   restart: on-failure
   tags:
-    - services
+    - payment
 postgres:
   environment:
     - DB_NAME=cote
