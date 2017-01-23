@@ -4,6 +4,8 @@ var app = require('express')(),
     cote = require('cote');
 
 app.get('/', function (req, res) {
+    console.log(`${req.ip} requested end-user interface`);
+
     res.sendFile(__dirname + '/index.html');
 });
 
