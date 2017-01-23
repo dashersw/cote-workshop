@@ -24,7 +24,7 @@ services:
     extends: base
     command: node admin/server.js
     environment:
-      - VIRTUAL_HOST=admin.cote.co, ws://admin.cote.co
+      - VIRTUAL_HOST=local-admin.cotejs.org, ws://local-admin.cotejs.org
       - BALANCE=source
     expose:
       - 5000
@@ -33,7 +33,7 @@ services:
     extends: base
     command: node end-user/server.js
     environment:
-      - VIRTUAL_HOST=end-user.cote.co, ws://end-user.cote.co
+      - VIRTUAL_HOST=local-end-user.cotejs.org, ws://local-end-user.cotejs.org
       - BALANCE=source
     expose:
       - 5001
@@ -43,7 +43,7 @@ services:
     command: node monitor.js
     environment:
       - PORT=80
-      - VIRTUAL_HOST=monitoring.cote.co
+      - VIRTUAL_HOST=local-monitoring.cotejs.org
     expose:
       - 5555
 
