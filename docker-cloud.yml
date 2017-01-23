@@ -1,0 +1,98 @@
+admin:
+  command: node admin/server.js
+  environment:
+    - BALANCE=source
+    - 'VIRTUAL_HOST=admin.cotejs.org, demo-admin.cotejs.org, ws://admin.cotejs.org, ws://demo-admin.cotejs.org'
+  expose:
+    - '5000'
+  image: 'cotedemo/cote-workshop:latest'
+  restart: on-failure
+  tags:
+    - admin
+db:
+  command: node init-db.js
+  environment:
+    - PG=true
+  image: 'cotedemo/cote-workshop:latest'
+  links:
+    - pg
+  tags:
+    - db
+end-user:
+  command: node end-user/server.js
+  environment:
+    - BALANCE=source
+    - 'VIRTUAL_HOST=end-user.cotejs.org, ws://end-user.cotejs.org, demo-end-user.cotejs.org, ws://demo-end-user.cotejs.org'
+  expose:
+    - '5001'
+  image: 'cotedemo/cote-workshop:latest'
+  restart: on-failure
+  tags:
+    - end-user
+lb:
+  deployment_strategy: every_node
+  image: 'dockercloud/haproxy:latest'
+  links:
+    - admin
+    - end-user
+    - monitoring
+  ports:
+    - '80:80'
+    - '443:443'
+  restart: on-failure
+  tags:
+    - lb
+  volumes:
+    - '/var/run/docker.sock:/var/run/docker.sock'
+monitoring:
+  command: node monitor.js
+  environment:
+    - PORT=5555
+    - 'VIRTUAL_HOST=monitoring.cotejs.org,demo-monitoring.cotejs.org'
+  expose:
+    - '5555'
+  image: 'cotedemo/cote-workshop:latest'
+  tags:
+    - mon
+payment-service:
+  command: node services/payment-service.js
+  environment:
+    - PG=true
+  image: 'cotedemo/cote-workshop:latest'
+  restart: on-failure
+  tags:
+    - services
+pg:
+  environment:
+    - DB_NAME=cote
+    - DB_PASS=ohgath2ig8eoP8
+    - DB_USER=cote
+  image: 'sameersbn/postgresql:9.6-1'
+  tags:
+    - db
+  volumes:
+    - '/data/pg:/var/lib/postgresql'
+product-service:
+  command: node services/product-service.js
+  environment:
+    - PG=true
+  image: 'cotedemo/cote-workshop:latest'
+  restart: on-failure
+  tags:
+    - services
+purchase-service:
+  command: node services/purchase-service.js
+  environment:
+    - PG=true
+  image: 'cotedemo/cote-workshop:latest'
+  restart: on-failure
+  tags:
+    - services
+user-service:
+  command: node services/user-service.js
+  environment:
+    - PG=true
+  image: 'cotedemo/cote-workshop:latest'
+  restart: on-failure
+  tags:
+    - services
