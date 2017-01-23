@@ -30,6 +30,8 @@
 
             $scope.purchase = function(id) {
                 purchaseService.emit('buy', { userId: $scope.user.id, productId: id }, function(err, data) {
+                    if (err) return;
+
                     list();
                     $scope.user = data.user;
                 });
