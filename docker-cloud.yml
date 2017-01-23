@@ -15,7 +15,7 @@ db:
     - PG=true
   image: 'cotedemo/cote-workshop:latest'
   links:
-    - pg
+    - postgres
   tags:
     - db
 end-user:
@@ -59,10 +59,12 @@ payment-service:
   environment:
     - PG=true
   image: 'cotedemo/cote-workshop:latest'
+  links:
+    - postgres
   restart: on-failure
   tags:
     - services
-pg:
+postgres:
   environment:
     - DB_NAME=cote
     - DB_PASS=ohgath2ig8eoP8

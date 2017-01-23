@@ -3,7 +3,7 @@ var orm = require('orm');
 var connectionString;
 
 if (process.env.PG == 'true')
-    connectionString = 'postgres://cote:ohgath2ig8eoP8@pg/cote';
+    connectionString = 'postgres://cote:ohgath2ig8eoP8@postgres/cote';
 else
     connectionString = 'sqlite://db.sqlite';
 
