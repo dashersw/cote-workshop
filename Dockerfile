@@ -1,4 +1,4 @@
-FROM mhart/alpine-node:latest
+FROM node:7-alpine
 
 ENV COTE_MULTICAST_ADDRESS=239.1.21.121
 
