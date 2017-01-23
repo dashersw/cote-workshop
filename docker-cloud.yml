@@ -40,10 +40,10 @@ lb:
     - '80:80'
     - '443:443'
   restart: on-failure
+  roles:
+    - global
   tags:
     - lb
-  volumes:
-    - '/var/run/docker.sock:/var/run/docker.sock'
 monitoring:
   command: node monitor.js
   environment:
