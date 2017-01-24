@@ -5,7 +5,7 @@ admin:
     - 'VIRTUAL_HOST=admin.cotejs.org, demo-admin.cotejs.org, ws://admin.cotejs.org, ws://demo-admin.cotejs.org'
   expose:
     - '5000'
-  image: 'cotedemo/cote-workshop:latest'
+  image: 'cotedemo/cote-workshop:admin'
   restart: on-failure
   tags:
     - admin
@@ -13,7 +13,7 @@ db:
   command: node init-db.js
   environment:
     - PG=true
-  image: 'cotedemo/cote-workshop:latest'
+  image: 'cotedemo/cote-workshop:init-db'
   links:
     - postgres
   tags:
@@ -25,7 +25,7 @@ end-user:
     - 'VIRTUAL_HOST=end-user.cotejs.org, ws://end-user.cotejs.org, demo-end-user.cotejs.org, ws://demo-end-user.cotejs.org'
   expose:
     - '5001'
-  image: 'cotedemo/cote-workshop:latest'
+  image: 'cotedemo/cote-workshop:end-user'
   restart: on-failure
   tags:
     - end-user
@@ -51,14 +51,14 @@ monitoring:
     - 'VIRTUAL_HOST=monitoring.cotejs.org,demo-monitoring.cotejs.org'
   expose:
     - '5555'
-  image: 'cotedemo/cote-workshop:latest'
+  image: 'cotedemo/cote-workshop:monitoring'
   tags:
     - mon
 payment-service:
   command: node services/payment-service.js
   environment:
     - PG=true
-  image: 'cotedemo/cote-workshop:latest'
+  image: 'cotedemo/cote-workshop:payment-service'
   links:
     - postgres
   restart: on-failure
@@ -78,7 +78,7 @@ product-service:
   command: node services/product-service.js
   environment:
     - PG=true
-  image: 'cotedemo/cote-workshop:latest'
+  image: 'cotedemo/cote-workshop:product-service'
   restart: on-failure
   tags:
     - services
@@ -86,7 +86,7 @@ purchase-service:
   command: node services/purchase-service.js
   environment:
     - PG=true
-  image: 'cotedemo/cote-workshop:latest'
+  image: 'cotedemo/cote-workshop:purchase-service'
   restart: on-failure
   tags:
     - services
@@ -94,7 +94,7 @@ user-service:
   command: node services/user-service.js
   environment:
     - PG=true
-  image: 'cotedemo/cote-workshop:latest'
+  image: 'cotedemo/cote-workshop:user-service'
   restart: on-failure
   tags:
     - services
