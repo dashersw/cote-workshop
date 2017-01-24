@@ -20,7 +20,7 @@
     "sqlite3": "^3.1.8"
   },
   "scripts": {
-    "test": "ava --verbose --timeout=10000"
+    "test": "ava --verbose --timeout=60000"
   },
   "devDependencies": {
     "ava": "^0.17.0"
