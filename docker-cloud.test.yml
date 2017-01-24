@@ -7,9 +7,15 @@ postgres:
   volumes:
     - '/data/pg:/var/lib/postgresql'
 
+user-service:
+  command: node services/user-service.js
+  environment:
+    - PG=true
+  image: 'cotedemo/cote-workshop:user-service'
+
 sut:
   build: .
   command: npm test
   links:
     - postgres
-
+    - user-service
