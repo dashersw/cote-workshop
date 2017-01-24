@@ -1,21 +1,9 @@
-postgres:
-  environment:
-    - DB_NAME=cote
-    - DB_PASS=ohgath2ig8eoP8
-    - DB_USER=cote
-  image: 'sameersbn/postgresql:9.6-1'
-  volumes:
-    - '/data/pg:/var/lib/postgresql'
-
 user-service:
   command: node services/user-service.js
-  environment:
-    - PG=true
   image: 'cotedemo/cote-workshop:user-service'
 
 sut:
   build: .
   command: npm test
   links:
-    - postgres
     - user-service
