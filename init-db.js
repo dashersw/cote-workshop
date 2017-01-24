@@ -18,12 +18,20 @@ var products = [
     }
 ];
 
-models.init(function(err) {
-    if (err) return console.log(err);
+module.exports = new Promise((resolve, reject) => {
+    models.drop(err => {
+        if (err) return console.log(err);
 
-    products.forEach(function(product) {
-        models.Product.create(product, function(err, product) {
-            console.log('Initialized', product.name);
+        models.init(function(err) {
+            if (err) return console.log(err);
+
+            products.forEach(function(product) {
+                models.Product.create(product, function(err, product) {
+                    console.log('Initialized', product.name);
+
+                    resolve();
+                });
+            });
         });
     });
 });

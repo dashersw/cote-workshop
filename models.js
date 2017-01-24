@@ -37,18 +37,23 @@ Purchase.hasOne('owner', User, {
 });
 
 function init(callback) {
+    console.log('Initializing db.');
+
+    db.sync(callback);
+}
+
+function drop(callback) {
     console.log('Dropping db.');
 
-    db.drop(function() {
-        console.log('Initializing db.');
-
-        db.sync(callback);
-    });
+    db.drop(callback);
 }
+
+db.sync();
 
 module.exports = {
     Product: Product,
     Purchase: Purchase,
     User: User,
-    init: init
+    init: init,
+    drop: drop
 };
