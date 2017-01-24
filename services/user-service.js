@@ -26,6 +26,10 @@ userResponder.on('list', function(req, cb) {
     models.User.find(query, cb);
 });
 
+userResponder.on('get', function(req, cb) {
+    models.User.get(req.id, cb);
+});
+
 function updateUsers() {
     models.User.find(function(err, users) {
         userPublisher.publish('update', users);
