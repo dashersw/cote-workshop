@@ -18,5 +18,11 @@
     "redbird": "^0.6.15",
     "socket.io": "^1.7.2",
     "sqlite3": "^3.1.8"
+  },
+  "scripts": {
+    "test": "ava --verbose --timeout=10000"
+  },
+  "devDependencies": {
+    "ava": "^0.17.0"
   }
 }

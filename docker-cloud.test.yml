@@ -1,0 +1,17 @@
+postgres:
+  environment:
+    - DB_NAME=cote
+    - DB_PASS=ohgath2ig8eoP8
+    - DB_USER=cote
+  image: 'sameersbn/postgresql:9.6-1'
+  tags:
+    - db
+  volumes:
+    - '/data/pg:/var/lib/postgresql'
+
+sut:
+  build: .
+  command: npm test
+  link:
+    - postgres
+
