@@ -9,6 +9,8 @@ var paymentResponder = new cote.Responder({
 paymentResponder.on('*', console.log);
 
 paymentResponder.on('process', function(req, cb) {
+    console.log(`payment request received for user ${req.userId}`);
+
     models.User.get(req.userId, function(err, user) {
         if (user.balance < req.price) return cb(true);
 
