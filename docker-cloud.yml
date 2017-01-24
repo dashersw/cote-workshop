@@ -1,4 +1,5 @@
 admin:
+  autoredeploy: true
   command: node admin/server.js
   environment:
     - BALANCE=source
@@ -10,6 +11,7 @@ admin:
   tags:
     - admin
 db:
+  autoredeploy: true
   command: node init-db.js
   environment:
     - PG=true
@@ -19,6 +21,7 @@ db:
   tags:
     - db
 end-user:
+  autoredeploy: true
   command: node end-user/server.js
   environment:
     - BALANCE=source
@@ -45,6 +48,7 @@ lb:
   tags:
     - lb
 monitoring:
+  autoredeploy: true
   command: node monitor.js
   environment:
     - PORT=5555
@@ -55,6 +59,7 @@ monitoring:
   tags:
     - mon
 payment-service:
+  autoredeploy: true
   command: node services/payment-service.js
   environment:
     - PG=true
@@ -75,6 +80,7 @@ postgres:
   volumes:
     - '/data/pg:/var/lib/postgresql'
 product-service:
+  autoredeploy: true
   command: node services/product-service.js
   environment:
     - PG=true
@@ -83,6 +89,7 @@ product-service:
   tags:
     - services
 purchase-service:
+  autoredeploy: true
   command: node services/purchase-service.js
   environment:
     - PG=true
@@ -91,6 +98,7 @@ purchase-service:
   tags:
     - services
 user-service:
+  autoredeploy: true
   command: node services/user-service.js
   environment:
     - PG=true
