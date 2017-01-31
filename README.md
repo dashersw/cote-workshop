@@ -86,13 +86,13 @@ This repo includes a proxy service which binds on port 80 to host the applicatio
 
 The proxy supports these virtual hosts;
 
-`http://admin.cote.co` for the admin interface and redirects requests to `localhost:5000`.
+`http://local-admin.cotejs.org` for the admin interface and redirects requests to `localhost:5000`.
 
-`http://end-user.cote.co` for the end user interface and redirects requests to `localhost:5001`.
+`http://local-end-user.cotejs.org` for the end user interface and redirects requests to `localhost:5001`.
 
-`http://monitoring.cote.co` for the monitoring interface and redirects requests to `localhost:5555`.
+`http://local-monitoring.cotejs.org` for the monitoring interface and redirects requests to `localhost:5555`.
 
-Then you have to modify your `/etc/hosts` file to include `127.0.0.1 admin.cote.co end-user.cote.co monitoring.cote.co`. Now when you visit either of these addresses in your browser, you will be redirected to the respective service.
+Then you have to modify your `/etc/hosts` file to include `127.0.0.1 local-admin.cotejs.org local-end-user.cotejs.org local-monitoring.cotejs.org`. Now when you visit either of these addresses in your browser, you will be redirected to the respective service.
 
 ## Docker installation
 
