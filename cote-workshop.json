@@ -11,6 +11,11 @@
             "watch"     : "end-user/server.js"
         },
         {
+            "name"      : "monitor",
+            "script"    : "monitor.js",
+            "watch"     : "monitor.js"
+        },
+        {
             "name"      : "payment-service",
             "script"    : "services/payment-service.js",
             "watch"     : "services/payment-service.js"
