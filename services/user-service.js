@@ -13,25 +13,35 @@ var userPublisher = new cote.Publisher({
     broadcasts: ['update']
 });
 
-userResponder.on('*', console.log);
+// userResponder.on('*', console.log);
 
-userResponder.on('create', function(req, cb) {
-    models.User.create({}, cb);
+userResponder.on('create', () => create().then(updateUsers));
 
-    updateUsers();
-});
-
-userResponder.on('list', function(req, cb) {
-    var query = req.query || {};
-    models.User.find(query, cb);
-});
+userResponder.on('list', (req) => find(req));
 
 userResponder.on('get', function(req, cb) {
     models.User.get(req.id, cb);
 });
 
-function updateUsers() {
+function updateUsers(user) {
     models.User.find(function(err, users) {
         userPublisher.publish('update', users);
     });
+
+    return user;
 }
+
+const find = ({query = {}}) => new Promise((resolve, reject) => {
+    models.User.find(query, (err, res) => {
+        if (err) return reject(err);
+        resolve(res);
+    });
+});
+
+const create = () => new Promise((resolve, reject) => {
+    console.log('create istegi');
+    models.User.create({}, (err, res) => {
+        if (err) return reject(err);
+        resolve(res);
+    });
+});

@@ -11,7 +11,7 @@
   "license": "MIT",
   "dependencies": {
     "body-parser": "^1.16.0",
-    "cote": "0.9.3-monitoring-3",
+    "cote": "dashersw/cote#promises",
     "express": "^4.14.0",
     "orm": "^3.2.3",
     "pg": "^6.1.0",
