@@ -11,12 +11,10 @@ test.cb('create user', t => {
         namespace: 'user'
     });
 
-    userRequester.on('ready', _ => {
-        userRequester.send({type: 'create'}, (err, user) => {
-            t.is(user.balance, 30);
-            t.truthy(user.id);
-            t.end();
-        });
+    userRequester.send({ type: 'create' }, (err, user) => {
+        t.is(user.balance, 30);
+        t.truthy(user.id);
+        t.end();
     });
 });
 
@@ -26,17 +24,15 @@ test.cb('get user', t => {
         namespace: 'user'
     });
 
-    userRequester.on('ready', _ => {
-        userRequester.send({ type: 'create' }, (err, newUser) => {
-            t.is(newUser.balance, 30);
-            t.truthy(newUser.id);
+    userRequester.send({ type: 'create' }, (err, newUser) => {
+        t.is(newUser.balance, 30);
+        t.truthy(newUser.id);
 
-            userRequester.send({ type: 'get', id: newUser.id }, (err, user) => {
-                console.log(err, user)
-                t.is(user.id, newUser.id);
-                t.is(user.balance, newUser.balance);
-                t.end();
-            })
-        });
+        userRequester.send({ type: 'get', id: newUser.id }, (err, user) => {
+            console.log(err, user)
+            t.is(user.id, newUser.id);
+            t.is(user.balance, newUser.balance);
+            t.end();
+        })
     });
 });
