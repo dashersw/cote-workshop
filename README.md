@@ -33,7 +33,7 @@ pm2 start cote-workshop.json
 
 This will run all the 6 services you need, and you can monitor your services with `pm2 monit` or use any pm2 commands at your disposal.
 
-Admin interface will be available in [http://localhost:5000](http://localhost:5001)
+Admin interface will be available in [http://localhost:5000](http://localhost:5000)
 
 End user interface will be available in [http://localhost:5001](http://localhost:5001)
 
