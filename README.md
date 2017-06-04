@@ -49,7 +49,7 @@ Run the admin interface:
 node admin/server
 ```
 
-Admin interface will be available in [http://localhost:5001](http://localhost:5001)
+Admin interface will be available in [http://localhost:5000](http://localhost:5000)
 
 Run the end user interface in a separate terminal window (or tab):
 
