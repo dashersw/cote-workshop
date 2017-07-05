@@ -1,6 +1,6 @@
 user-service:
+  build: .
   command: node services/user-service.js
-  image: 'cotedemo/cote-workshop:user-service'
 
 sut:
   build: .
