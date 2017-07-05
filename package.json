@@ -1,6 +1,6 @@
 {
   "name": "cote-workshop",
-  "version": "0.12.1",
+  "version": "0.12.2",
   "description": "A microservices case study with cote",
   "repository": {
     "type": "git",
