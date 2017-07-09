@@ -1,0 +1,130 @@
+version: '3'
+
+networks:
+  lb:
+    driver: overlay
+  cote:
+    driver: overlay
+
+services:
+  lb:
+    image: dockercloud/haproxy
+    deploy:
+      placement:
+        constraints:
+          - node.role == manager
+    networks:
+      - lb
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    ports:
+      - 80:80
+      - 443:443
+
+  admin:
+    image: dashersw/cote-workshop
+    networks:
+      - lb
+      - cote
+    command: node admin/server.js
+    environment:
+      - PG=true
+      - COTE_DISCOVERY_REDIS_HOST=redis
+      - VIRTUAL_HOST=local-admin.cotejs.org, ws://local-admin.cotejs.org
+      - SERVICE_PORTS=5000
+      - BALANCE=source
+
+  end-user:
+    networks:
+      - lb
+      - cote
+    image: dashersw/cote-workshop
+    command: node end-user/server.js
+    environment:
+      - PG=true
+      - COTE_DISCOVERY_REDIS_HOST=redis
+      - VIRTUAL_HOST=local-end-user.cotejs.org, ws://local-end-user.cotejs.org
+      - SERVICE_PORTS=5001
+      - BALANCE=source
+
+  monitoring:
+    networks:
+      - lb
+      - cote
+    image: dashersw/cote-workshop
+    command: node monitor.js
+    environment:
+      - PG=true
+      - COTE_DISCOVERY_REDIS_HOST=redis
+      - SERVICE_PORTS=5555
+      - VIRTUAL_HOST=local-monitoring.cotejs.org
+
+  payment-service:
+    networks:
+      - cote
+    image: dashersw/cote-workshop
+    command: node services/payment-service.js
+    environment:
+      - PG=true
+      - COTE_DISCOVERY_REDIS_HOST=redis
+    depends_on:
+      - db
+
+  product-service:
+    networks:
+      - cote
+    image: dashersw/cote-workshop
+    command: node services/product-service.js
+    environment:
+      - PG=true
+      - COTE_DISCOVERY_REDIS_HOST=redis
+    depends_on:
+      - db
+
+  purchase-service:
+    networks:
+      - cote
+    image: dashersw/cote-workshop
+    command: node services/purchase-service.js
+    environment:
+      - PG=true
+      - COTE_DISCOVERY_REDIS_HOST=redis
+    depends_on:
+      - db
+
+  user-service:
+    networks:
+      - cote
+    image: dashersw/cote-workshop
+    command: node services/user-service.js
+    environment:
+      - PG=true
+      - COTE_DISCOVERY_REDIS_HOST=redis
+    depends_on:
+      - db
+
+  redis:
+    image: redis
+    networks:
+      - cote
+    ports:
+      - 6379:6379
+
+  db:
+    networks:
+      - cote
+    image: dashersw/cote-workshop
+    command: node init-db.js
+    environment:
+      - PG=true
+    depends_on:
+      - postgres
+
+  postgres:
+    networks:
+      - cote
+    image: sameersbn/postgresql:9.6-1
+    environment:
+      - DB_USER=cote
+      - DB_PASS=ohgath2ig8eoP8
+      - DB_NAME=cote
