@@ -45,7 +45,10 @@ function init(callback) {
 function drop(callback) {
     console.log('Dropping db.');
 
-    db.drop(callback);
+    if (process.env.DROP)
+        db.drop(callback);
+    else
+        callback();
 }
 
 db.sync();
