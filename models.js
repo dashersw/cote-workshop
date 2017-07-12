@@ -43,10 +43,10 @@ function init(callback) {
 }
 
 function drop(callback) {
-    console.log('Dropping db.');
-
-    if (process.env.DROP)
+    if (process.env.DROP) {
+        console.log('Dropping db.');
         db.drop(callback);
+    }
     else
         callback();
 }
