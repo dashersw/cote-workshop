@@ -1,0 +1,275 @@
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: init-db
+spec:
+  selector:
+    matchLabels:
+      name: init-db
+  template:
+    metadata:
+      labels:
+        name: init-db
+    spec:
+      containers:
+      - image: dashersw/cote-workshop
+        name: init-db
+        command: ["node", "init-db.js"]
+        env:
+          - name: PG
+            value: "true"
+          - name: COTE_MULTICAST_ADDRESS
+            value: "239.1.11.131"
+---
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: admin
+spec:
+  selector:
+    matchLabels:
+      name: admin
+  template:
+    metadata:
+      labels:
+        name: admin
+    spec:
+      containers:
+      - image: dashersw/cote-workshop
+        name: admin
+        command: ["node", "admin/server.js"]
+        ports:
+        - containerPort: 5000
+        env:
+          - name: PG
+            value: "true"
+          - name: COTE_MULTICAST_ADDRESS
+            value: "239.1.11.131"
+---
+
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: end-user
+spec:
+  selector:
+    matchLabels:
+      name: end-user
+  template:
+    metadata:
+      labels:
+        name: end-user
+    spec:
+      containers:
+      - image: dashersw/cote-workshop
+        name: admin
+        command: ["node", "end-user/server.js"]
+        ports:
+        - containerPort: 5001
+        env:
+          - name: PG
+            value: "true"
+          - name: COTE_MULTICAST_ADDRESS
+            value: "239.1.11.131"
+---
+
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: monitoring
+spec:
+  selector:
+    matchLabels:
+      name: monitoring
+  template:
+    metadata:
+      labels:
+        name: monitoring
+    spec:
+      containers:
+      - image: dashersw/cote-workshop
+        name: monitoring
+        command: ["node", "monitor.js"]
+        ports:
+        - containerPort: 5555
+        env:
+          - name: PG
+            value: "true"
+          - name: COTE_MULTICAST_ADDRESS
+            value: "239.1.11.131"
+---
+
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: payment-service
+spec:
+  selector:
+    matchLabels:
+      name: payment-service
+  template:
+    metadata:
+      labels:
+        name: payment-service
+    spec:
+      containers:
+      - image: dashersw/cote-workshop
+        name: payment-service
+        command: ["node", "services/payment-service.js"]
+        env:
+          - name: PG
+            value: "true"
+          - name: COTE_MULTICAST_ADDRESS
+            value: "239.1.11.131"
+
+---
+
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: product-service
+spec:
+  selector:
+    matchLabels:
+      name: product-service
+  template:
+    metadata:
+      labels:
+        name: product-service
+    spec:
+      containers:
+      - image: dashersw/cote-workshop
+        name: product-service
+        command: ["node", "services/product-service.js"]
+        env:
+          - name: PG
+            value: "true"
+          - name: COTE_MULTICAST_ADDRESS
+            value: "239.1.11.131"
+---
+
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: purchase-service
+spec:
+  selector:
+    matchLabels:
+      name: purchase-service
+  template:
+    metadata:
+      labels:
+        name: purchase-service
+    spec:
+      containers:
+      - image: dashersw/cote-workshop
+        name: purchase-service
+        command: ["node", "services/purchase-service.js"]
+        env:
+          - name: PG
+            value: "true"
+          - name: COTE_MULTICAST_ADDRESS
+            value: "239.1.11.131"
+---
+
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: user-service
+spec:
+  selector:
+    matchLabels:
+      name: user-service
+  template:
+    metadata:
+      labels:
+        name: user-service
+    spec:
+      containers:
+      - image: dashersw/cote-workshop
+        name: user-service
+        command: ["node", "services/user-service.js"]
+        env:
+          - name: PG
+            value: "true"
+          - name: COTE_MULTICAST_ADDRESS
+            value: "239.1.11.131"
+
+---
+
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: postgres
+spec:
+  selector:
+    matchLabels:
+      name: postgres
+  template:
+    metadata:
+      labels:
+        name: postgres
+    spec:
+      containers:
+      - image: sameersbn/postgresql:9.6-1
+        name: postgres
+        ports:
+        - containerPort: 5432
+        env:
+          - name: DB_USER
+            value: "cote"
+          - name: DB_PASS
+            value: "ohgath2ig8eoP8"
+          - name: DB_NAME
+            value: "cote"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: postgres
+spec:
+  type: ClusterIP
+  ports:
+  - port: 5432
+    targetPort: 5432
+  selector:
+    name: postgres
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: admin
+spec:
+  type: LoadBalancer
+  ports:
+  - port: 80
+    targetPort: 5000
+  selector:
+    name: admin
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: end-user
+spec:
+  type: LoadBalancer
+  ports:
+  - port: 80
+    targetPort: 5001
+  selector:
+    name: end-user
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: monitoring
+spec:
+  type: LoadBalancer
+  ports:
+  - port: 80
+    targetPort: 5555
+  selector:
+    name: monitoring
