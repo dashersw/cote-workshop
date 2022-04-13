@@ -13,7 +13,7 @@ The client interface is implemented entirely in cote; the server only serves a s
 Run the following commands:
 
 ```
-git clone git@github.com:dashersw/cote-workshop.git
+git clone https://github.com/dashersw/cote-workshop
 cd cote-workshop
 npm install
 node init-db.js
